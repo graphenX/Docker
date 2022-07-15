@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  ansible:
+    image: "graphenx/ansible"
+    container_name: ansible-mgmt
+
+    deploy:
+      labels:
+        ansible.container.usage: "Ansible managment containerized application for server management"
+
+    working_dir: /root/IaC
+    environment:
+      ANSIBLE_PATH: /root/IaC
+      ANSIBLE_SSH_KEY: /root/.ssh/ed25519_docker
+
+    stdin_open: true
+    tty: yes
+    command: sh
+
+    volumes:
+      - ansible-iac:/root/IaC
+      - ansible-inventory:/root/IaC/inventory
+      - ./volumes/docker-sshkeys/:/root/.ssh/:ro
+
+    networks:
+      - ansible-network
+
+volumes:
+  ansible-iac:
+  ansible-inventory: 
+
+networks:
+  ansible-network: {}
