@@ -2,6 +2,7 @@
 
 # This script must be run with "sudo -E bash -c "./build.sh"
 
+# Clone repo on volumes folder
 git clone $GIT_IaC ./volumes
 
 # Mount Ansible IaC on docker volume
@@ -15,4 +16,5 @@ docker run --rm -it -v ansible-inventory:/test alpine ls /test/inventory
 # Build Ansible contaniner
 docker-compose up -d
 
+# Open interactive shell
 docker exec -it ansible-mgmt sh
